@@ -224,6 +224,39 @@ var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+var loadTasks = function() {
+//Gets task items from localStorage.
+var savedTasks = localStorage.getItem("tasks");
+console.log(savedTasks);
+// if there are no tasks, set tasks to an empty array and return out of the function
+
+if (savedTasks === null) {
+  return false;
+} 
+console.log("Saved tasks found!");
+// else, load up saved tasks 
+
+//Converts tasks from the string format back into an array of objects. (parse)
+savedTasks = JSON.parse(savedTasks);
+console.log(savedTasks);
+
+// Iterates through a tasks array and creates task elements on the page from it
+for (var i = 0; i < savedTasks.length; i++) {
+  // pass each task object into the createTaskEl function
+  createTaskEl(savedTasks[i]);
+  console.log(savedTasks[i]);
+  }
+
+  //savedTasks[i].setAttribute("data-task-id", taskIdCounter); <---
+  console.log(tasks[i]);
+
+  var listItemEl = document.createElement("li");
+  listItemEl.className = "task-item";
+
+  console.log(listItemEl);
+};
+
   pageContentEl.addEventListener("click", taskButtonHandler);
   formEl.addEventListener("submit", taskFormHandler);
   pageContentEl.addEventListener("change", taskStatusChangeHandler);
+  loadTasks();
